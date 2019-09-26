@@ -1,7 +1,8 @@
+PROFILE_NAME=$("${BASH_SOURCE%/*}/profile_name.rb")
 KEYPAIR_NAME=$("${BASH_SOURCE%/*}/random_phrase.rb")
 KEYPAIR_FILENAME=~/.ssh/$KEYPAIR_NAME.pem
 
-aws ec2 create-key-pair --profile personal \
+aws ec2 create-key-pair --profile=$PROFILE_NAME \
   --key-name $KEYPAIR_NAME \
   --query 'KeyMaterial' \
   --output text > $KEYPAIR_FILENAME

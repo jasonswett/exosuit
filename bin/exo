@@ -1,27 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'open3'
-require 'pry'
-require 'json'
-
-module Exosuit
-  require 'yaml'
-
-  def self.config
-    config_dir = './.exosuit'
-    filename = "#{config_dir}/config.yml"
-    YAML::load_file(filename)
-  end
-
-  def self.dns_names
-    command = 'aws ec2 describe-instances --filters Name=instance-state-name,Values=running --profile=personal'
-    response, _, _ = Open3.capture3(command)
-
-    JSON.parse(response)['Reservations'].map do |data|
-      data['Instances'][0]['PublicDnsName']
-    end
-  end
-end
+require_relative '../lib/exosuit'
 
 aws_cli_installed = system('which aws', out: File::NULL)
 

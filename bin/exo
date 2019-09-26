@@ -36,11 +36,4 @@ if ARGV[0] == 'ssh'
   exit
 end
 
-puts 'Usage:'
-puts '  exo [command]'
-puts
-puts 'These are the commands you can use:'
-puts '  launch                 Launch a new EC2 instance'
-puts '  describe-instances     Alias for aws ec2 describe-instances'
-puts '  dns                    List public DNS names for all EC2 instances'
-puts '  ssh                    SSH into an EC2 instance'
+puts Exosuit.help_text

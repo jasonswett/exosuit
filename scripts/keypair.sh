@@ -1,5 +1,5 @@
-KEYPAIR_NAME=KeyPair7
-KEYPAIR_FILENAME=~/exo.pem
+KEYPAIR_NAME=$("${BASH_SOURCE%/*}/random_phrase.rb")
+KEYPAIR_FILENAME=~/.ssh/$KEYPAIR_NAME.pem
 
 aws ec2 create-key-pair --profile personal \
   --key-name $KEYPAIR_NAME \

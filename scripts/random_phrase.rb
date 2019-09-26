@@ -8,14 +8,12 @@ adjectives = %w(
   sweet
   miserable
   awful
-  acceptable
   big
   tiny
   huge
   loud
   quiet
   peaceful
-  tolerable
   intolerable
   magic
   mysterious
@@ -24,6 +22,17 @@ adjectives = %w(
   musical
   screaming
   sobbing
+  weird
+  strange
+  normal
+  fantastic
+  enchanting
+  evil
+  malevolent
+  stupid
+  cool
+  awesome
+  radical
 )
 
 nouns = %w(
@@ -57,6 +66,11 @@ nouns = %w(
   carrot
   potato
   lizard
+  elf
+  soup
+  pizza
+  banana
+  volcano
 )
 
 puts "#{adjectives.sample}-#{adjectives.sample}-#{nouns.sample}"

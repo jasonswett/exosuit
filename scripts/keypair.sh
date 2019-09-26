@@ -6,4 +6,7 @@ aws ec2 create-key-pair --profile personal \
   --query 'KeyMaterial' \
   --output text > $KEYPAIR_FILENAME
 
+chmod 400 $KEYPAIR_FILENAME
+${BASH_SOURCE%/*}/update_keypair_config.rb $KEYPAIR_NAME $KEYPAIR_FILENAME
+
 echo "Successfully created new keypair at $KEYPAIR_FILENAME"

@@ -25,4 +25,4 @@ As of this writing (September 2019), Exosuit is only at the idea stage. I've wri
 
 ## Contact
 
-For more information about Exosuit, you can email me at jason@codewithjason.com and/or [follow me on Twitter](https://twitter.com/home).
+For more information about Exosuit, you can email me at jason@codewithjason.com and/or [follow me on Twitter](https://twitter.com/JasonSwett).

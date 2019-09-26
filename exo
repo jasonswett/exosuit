@@ -1,3 +1,11 @@
 #!/usr/bin/env ruby
 
+aws_cli_installed = system('which aws', out: File::NULL)
+
+unless aws_cli_installed
+  puts 'Missing dependency: AWS CLI is not installed.'
+  puts 'Visit https://aws.amazon.com/cli/ and install the AWS CLI, then try the exo command again.'
+  exit
+end
+
 system('shell/launch.sh')

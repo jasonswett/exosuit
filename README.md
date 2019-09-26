@@ -1,12 +1,16 @@
 # Exosuit
 
-Deploying Rails to AWS is a pain in the ass. Simply deploying a "hello, world" Rails app to EC2 can take hours of intense mental effort and trial-and-error.
+## Deploying Rails to AWS is a pain in the ass
+
+Simply deploying a "hello, world" Rails app to EC2 can take hours of intense mental effort and trial-and-error. AWS's documentation is often obtuse, incomplete, out of date, or all three!
 
 Heroku makes deployment easy, but if you use Heroku, you're not using AWS, you're using Heroku. Heroku puts up a wall between you and your AWS infrastructure, meaning you can't manage your AWS infrastructure directly. Plus Heroku is expensive.
 
 What if there were something in between? What if there were a tool that provided the dead-simple ease of use Heroku provides, but didn't put up a wall between you and your AWS infrastructure?
 
-This is the aim of *Exosuit*. Exosuit is a free, open source tool that lets you deploy Rails applications to AWS easily, quickly, and simply.
+## Exosuit makes Rails + AWS deployment easy
+
+This is the aim of **Exosuit**. Exosuit is a free, open source tool that lets you deploy Rails applications to AWS easily, quickly, and simply.
 
 ## Core beliefs
 

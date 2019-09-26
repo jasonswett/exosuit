@@ -40,9 +40,10 @@ if ARGV[0] == 'ssh'
   #ssh -i ~/.ssh/magic-screaming-thing.pem ubuntu@ec2-3-15-183-210.us-east-2.compute.amazonaws.com
 end
 
-puts 'usage: exo [command]'
+puts 'Usage:'
+puts '  exo [command]'
 puts
 puts 'These are the commands you can use:'
-puts 'launch                 Launch a new EC2 instance'
-puts 'describe-instances     Alias for aws ec2 describe-instances'
-puts 'dns                    List public DNS names for all EC2 instances'
+puts '  launch                 Launch a new EC2 instance'
+puts '  describe-instances     Alias for aws ec2 describe-instances'
+puts '  dns                    List public DNS names for all EC2 instances'

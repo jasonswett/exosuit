@@ -8,4 +8,12 @@ unless aws_cli_installed
   exit
 end
 
-system('shell/launch.sh')
+if ARGV[0] == 'launch'
+  system('shell/launch.sh')
+  exit
+end
+
+puts 'usage: exo [command]'
+puts
+puts 'These are the commands you can use:'
+puts 'launch     Launch a new EC2 instance'

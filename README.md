@@ -19,6 +19,10 @@ This is the aim of **Exosuit**. Exosuit is a free, open source tool that lets yo
 - Exosuit's command-line interface should be intuitive. When things go wrong, helpful, intuitive error messages should be provided.
 - Exosuit should help make AWS management easier, but when I want to, I should be able to manage my AWS infrastructure directly.
 
+## Getting started
+
+See the [Getting Started with Exosuit](https://github.com/jasonswett/exosuit/wiki/Getting-Started-with-Exosuit) page for installation and usage instructions.
+
 ## Development status
 
 As of this writing (September 2019), Exosuit is only at the idea stage. I've written a tiny, tiny amount of code for it. You can feel free to try to take it for a spin but you should set your expectations very low.

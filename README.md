@@ -22,3 +22,7 @@ This is the aim of **Exosuit**. Exosuit is a free, open source tool that lets yo
 ## Development status
 
 As of this writing (September 2019), Exosuit is only at the idea stage. I've written a tiny, tiny amount of code for it. You can feel free to try to take it for a spin but you should set your expectations very low.
+
+## Contact
+
+For more information about Exosuit, you can email me at jason@codewithjason.com and/or [follow me on Twitter](https://twitter.com/home).

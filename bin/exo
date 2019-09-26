@@ -11,29 +11,24 @@ unless aws_cli_installed
   exit
 end
 
-if ARGV[0] == 'launch'
+case ARGV[0]
+when 'launch'
   system('./scripts/keypair.sh')
   command = "./scripts/launch.sh #{Exosuit.config['keypair']['name']}"
   system(command)
   exit
-end
-
-if ARGV[0] == 'describe-instances'
+when 'describe-instances'
   system('aws ec2 describe-instances')
   exit
-end
-
-if ARGV[0] == 'dns'
+when 'dns'
   puts Exosuit.dns_names
   exit
-end
-
-if ARGV[0] == 'ssh'
+when 'ssh'
   dns_name = Exosuit.dns_names[0]
   command = "ssh -i #{Exosuit.config['keypair']['path']} -o StrictHostKeychecking=no ubuntu@#{dns_name}"
   puts command
   system(command)
   exit
+else
+  puts Exosuit.help_text
 end
-
-puts Exosuit.help_text

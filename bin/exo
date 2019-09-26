@@ -4,11 +4,22 @@ require 'open3'
 require 'pry'
 require 'json'
 
-def dns_names
-  response, _, _ = Open3.capture3('aws ec2 describe-instances')
+module Exosuit
+  require 'yaml'
 
-  JSON.parse(response)['Reservations'].map do |data|
-    data['Instances'][0]['PublicDnsName']
+  def self.config
+    config_dir = './.exosuit'
+    filename = "#{config_dir}/config.yml"
+    YAML::load_file(filename)
+  end
+
+  def self.dns_names
+    command = 'aws ec2 describe-instances --filters Name=instance-state-name,Values=running --profile=personal'
+    response, _, _ = Open3.capture3(command)
+
+    JSON.parse(response)['Reservations'].map do |data|
+      data['Instances'][0]['PublicDnsName']
+    end
   end
 end
 
@@ -21,7 +32,9 @@ unless aws_cli_installed
 end
 
 if ARGV[0] == 'launch'
-  system('shell/launch.sh')
+  system('./scripts/keypair.sh')
+  command = "./scripts/launch.sh #{Exosuit.config['keypair']['name']}"
+  system(command)
   exit
 end
 
@@ -31,13 +44,16 @@ if ARGV[0] == 'describe-instances'
 end
 
 if ARGV[0] == 'dns'
-  puts dns_names
+  puts Exosuit.dns_names
   exit
 end
 
 if ARGV[0] == 'ssh'
-  # prompt for which dns name
-  #ssh -i ~/.ssh/magic-screaming-thing.pem ubuntu@ec2-3-15-183-210.us-east-2.compute.amazonaws.com
+  dns_name = Exosuit.dns_names[0]
+  command = "ssh -i #{Exosuit.config['keypair']['path']} -o StrictHostKeychecking=no ubuntu@#{dns_name}"
+  puts command
+  system(command)
+  exit
 end
 
 puts 'Usage:'

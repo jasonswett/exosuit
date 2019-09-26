@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
 require 'yaml'
-require 'pry'
 
 config_dir = './.exosuit'
 filename = "#{config_dir}/config.yml"

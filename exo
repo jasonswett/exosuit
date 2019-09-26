@@ -13,7 +13,13 @@ if ARGV[0] == 'launch'
   exit
 end
 
+if ARGV[0] == 'describe-instances'
+  system('aws ec2 describe-instances')
+  exit
+end
+
 puts 'usage: exo [command]'
 puts
 puts 'These are the commands you can use:'
-puts 'launch     Launch a new EC2 instance'
+puts 'launch                 Launch a new EC2 instance'
+puts 'describe-instances     Alias for aws ec2 describe-instances'

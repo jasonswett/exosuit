@@ -1,7 +1,7 @@
 require 'json'
 require 'open3'
 require_relative 'exosuit/configuration'
-require_relative 'exosuit/keypair'
+require_relative 'exosuit/key_pair'
 require_relative 'exosuit/instance'
 
 module Exosuit
@@ -10,13 +10,13 @@ module Exosuit
   end
 
   def self.launch_instance
-    Instance.launch(generate_keypair)
+    Instance.launch(generate_key_pair)
   end
 
-  def self.generate_keypair
-    Keypair.new.save.tap do |keypair|
-      config.update_keypair(name: keypair.name, path: keypair.filename)
-      puts "Successfully created new keypair at #{keypair.filename}"
+  def self.generate_key_pair
+    KeyPair.new.save.tap do |key_pair|
+      config.update_key_pair(name: key_pair.name, path: key_pair.filename)
+      puts "Successfully created new key pair at #{key_pair.filename}"
     end
   end
 

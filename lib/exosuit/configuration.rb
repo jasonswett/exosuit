@@ -6,13 +6,13 @@ module Exosuit
     CONFIG_FILENAME = 'config.yml'
     FILENAME = "#{CONFIG_DIR}/#{CONFIG_FILENAME}"
 
-    def update_keypair(name:, path:)
+    def update_key_pair(name:, path:)
       ensure_file_exists
 
       config = values
-      config['keypair'] ||= {}
-      config['keypair']['name'] = name
-      config['keypair']['path'] = path
+      config['key_pair'] ||= {}
+      config['key_pair']['name'] = name
+      config['key_pair']['path'] = path
       save(config)
     end
 

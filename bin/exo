@@ -19,7 +19,7 @@ when 'dns'
   puts Exosuit.dns_names
 when 'ssh'
   dns_name = Exosuit.dns_names[0]
-  command = "ssh -i #{Exosuit.config.values['keypair']['path']} -o StrictHostKeychecking=no ubuntu@#{dns_name}"
+  command = "ssh -i #{Exosuit.config.values['key_pair']['path']} -o StrictHostKeychecking=no ubuntu@#{dns_name}"
   puts command
   system(command)
 else

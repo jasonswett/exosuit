@@ -1,7 +1,7 @@
 require_relative './random_phrase'
 
 module Exosuit
-  class Keypair
+  class KeyPair
     attr_accessor :name, :filename
 
     def initialize

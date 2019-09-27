@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 
-require 'open3'
 require_relative '../lib/exosuit'
 
 aws_cli_installed = system('which aws', out: File::NULL)
@@ -16,19 +15,15 @@ when 'launch'
   system('./scripts/keypair.sh')
   command = "./scripts/launch.sh #{Exosuit.config['keypair']['name']}"
   system(command)
-  exit
 when 'describe-instances'
   system('aws ec2 describe-instances')
-  exit
 when 'dns'
   puts Exosuit.dns_names
-  exit
 when 'ssh'
   dns_name = Exosuit.dns_names[0]
   command = "ssh -i #{Exosuit.config['keypair']['path']} -o StrictHostKeychecking=no ubuntu@#{dns_name}"
   puts command
   system(command)
-  exit
 else
   puts Exosuit.help_text
 end

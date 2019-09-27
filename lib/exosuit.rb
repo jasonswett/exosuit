@@ -1,4 +1,5 @@
 require 'json'
+require 'open3'
 
 module Exosuit
   require 'yaml'

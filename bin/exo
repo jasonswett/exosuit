@@ -12,9 +12,7 @@ end
 
 case ARGV[0]
 when 'launch'
-  system('./scripts/keypair.sh')
-  command = "./scripts/launch.sh #{Exosuit.config.values['keypair']['name']}"
-  system(command)
+  Exosuit.launch_instance
 when 'describe-instances'
   system('aws ec2 describe-instances')
 when 'dns'

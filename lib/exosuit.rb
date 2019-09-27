@@ -1,17 +1,14 @@
 require 'json'
 require 'open3'
+require_relative 'exosuit/configuration'
 
 module Exosuit
-  require 'yaml'
-
   def self.config
-    config_dir = './.exosuit'
-    filename = "#{config_dir}/config.yml"
-    YAML::load_file(filename)
+    Configuration.new
   end
 
   def self.dns_names
-    command = "aws ec2 describe-instances --filters Name=instance-state-name,Values=running --profile=#{Exosuit.config['aws_profile_name']}"
+    command = "aws ec2 describe-instances --filters Name=instance-state-name,Values=running --profile=#{Exosuit.config.values['aws_profile_name']}"
     response, _, _ = Open3.capture3(command)
 
     JSON.parse(response)['Reservations'].map do |data|

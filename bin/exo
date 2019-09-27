@@ -13,7 +13,7 @@ end
 case ARGV[0]
 when 'launch'
   system('./scripts/keypair.sh')
-  command = "./scripts/launch.sh #{Exosuit.config['keypair']['name']}"
+  command = "./scripts/launch.sh #{Exosuit.config.values['keypair']['name']}"
   system(command)
 when 'describe-instances'
   system('aws ec2 describe-instances')
@@ -21,7 +21,7 @@ when 'dns'
   puts Exosuit.dns_names
 when 'ssh'
   dns_name = Exosuit.dns_names[0]
-  command = "ssh -i #{Exosuit.config['keypair']['path']} -o StrictHostKeychecking=no ubuntu@#{dns_name}"
+  command = "ssh -i #{Exosuit.config.values['keypair']['path']} -o StrictHostKeychecking=no ubuntu@#{dns_name}"
   puts command
   system(command)
 else

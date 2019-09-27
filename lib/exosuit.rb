@@ -1,7 +1,8 @@
 require 'json'
 require 'open3'
 require_relative 'exosuit/configuration'
-require_relative 'exosuit/random_phrase'
+require_relative 'exosuit/keypair'
+require_relative 'exosuit/instance'
 
 module Exosuit
   def self.config
@@ -9,35 +10,14 @@ module Exosuit
   end
 
   def self.launch_instance
-    generate_keypair
-
-    command = %(
-      aws ec2 run-instances --profile=#{config.values['aws_profile_name']} \
-        --image-id ami-05c1fa8df71875112 \
-        --count 1 \
-        --instance-type t2.micro \
-        --key-name #{config.values['keypair']['name']}
-    )
-
-    system(command)
+    Instance.launch(generate_keypair)
   end
 
   def self.generate_keypair
-    keypair_name = RandomPhrase.generate
-    keypair_filename = "~/.ssh/#{keypair_name}.pem"
-
-    command = %(
-      aws ec2 create-key-pair --profile=#{config.values['aws_profile_name']} \
-        --key-name #{keypair_name} \
-        --query 'KeyMaterial' \
-        --output text > #{keypair_filename}
-    )
-
-    system(command)
-    system("chmod 400 #{keypair_filename}")
-
-    config.update_keypair(name: keypair_name, path: keypair_filename)
-    puts "Successfully created new keypair at #{keypair_filename}"
+    Keypair.new.save.tap do |keypair|
+      config.update_keypair(name: keypair.name, path: keypair.filename)
+      puts "Successfully created new keypair at #{keypair.filename}"
+    end
   end
 
   def self.dns_names

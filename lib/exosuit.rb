@@ -14,8 +14,22 @@ module Exosuit
   def self.launch_instance
     response = Instance.launch(self.key_pair)
     instance_id = response['Instances'][0]['InstanceId']
-    puts "Successfully launched instance #{instance_id}"
-    puts 'Run `bin/exo dns` to check to see when your instance is ready.'
+    print "Launching instance #{instance_id}..."
+
+    while true
+      sleep(1)
+      print '.'
+      instance = Instance.find(instance_id)
+
+      if instance && instance.running?
+        puts
+        break
+      end
+    end
+
+    puts 'Instance is now running'
+    puts "Public DNS: #{instance.public_dns_name}"
+    puts 'Run `bin/exo ssh` to SSH into your instance'
   end
 
   def self.key_pair

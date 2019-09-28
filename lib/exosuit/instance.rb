@@ -31,6 +31,10 @@ module Exosuit
       state == 'running'
     end
 
+    def self.find(instance_id)
+      all.find { |i| i.instance_id == instance_id }
+    end
+
     def to_s
       [instance_id, state, public_dns_name].compact.join("\n")
     end

@@ -10,11 +10,20 @@ unless aws_cli_installed
   exit
 end
 
+def puts_instances(instances)
+  instances.each do |instance|
+    puts '-' * 40
+    puts instance
+  end
+end
+
 case ARGV[0]
 when 'launch'
   Exosuit.launch_instance
-when 'describe-instances'
-  system('aws ec2 describe-instances')
+when 'instances'
+  puts_instances(Exosuit::Instance.all)
+when 'instances:running'
+  puts_instances(Exosuit::Instance.running)
 when 'dns'
   puts Exosuit.dns_names
 when 'ssh'

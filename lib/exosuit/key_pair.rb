@@ -4,12 +4,9 @@ module Exosuit
   class KeyPair
     attr_accessor :name, :filename
 
-    def initialize
-      @name = RandomPhrase.generate
-    end
-
-    def filename
-      "~/.ssh/#{@name}.pem"
+    def initialize(name = nil, filename = nil)
+      @name = name || RandomPhrase.generate
+      @filename = filename || "~/.ssh/#{@name}.pem"
     end
 
     def save

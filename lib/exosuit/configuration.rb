@@ -17,6 +17,7 @@ module Exosuit
     end
 
     def values
+      ensure_file_exists
       YAML::load_file(FILENAME)
     end
 

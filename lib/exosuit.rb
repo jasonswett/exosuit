@@ -1,5 +1,6 @@
 require 'json'
 require 'open3'
+require 'tty-prompt'
 require_relative 'exosuit/configuration'
 require_relative 'exosuit/key_pair'
 require_relative 'exosuit/instance'
@@ -10,7 +11,18 @@ module Exosuit
   end
 
   def self.launch_instance
-    Instance.launch(generate_key_pair)
+    Instance.launch(self.key_pair)
+  end
+
+  def self.key_pair
+    if config.values['key_pair'] && config.values['key_pair']['path']
+      KeyPair.new(
+        config.values['key_pair']['name'],
+        config.values['key_pair']['path']
+      )
+    else
+      generate_key_pair
+    end
   end
 
   def self.generate_key_pair
@@ -27,6 +39,15 @@ module Exosuit
     JSON.parse(response)['Reservations'].map do |data|
       data['Instances'][0]['PublicDnsName']
     end
+  end
+
+  def self.ssh
+    prompt = TTY::Prompt.new
+    dns_name = prompt.select('Which instance?', dns_names)
+
+    command = "ssh -i #{config.values['key_pair']['path']} -o StrictHostKeychecking=no ubuntu@#{dns_name}"
+    puts command
+    system(command)
   end
 
   def self.help_text

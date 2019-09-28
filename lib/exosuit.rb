@@ -29,7 +29,6 @@ module Exosuit
 
     puts 'Instance is now running'
     puts "Public DNS: #{instance.public_dns_name}"
-    puts 'Run `bin/exo ssh` to SSH into your instance'
   end
 
   def self.key_pair
@@ -50,17 +49,14 @@ module Exosuit
     end
   end
 
-  def self.dns_names
+  def self.public_dns_names
     Instance.running.map(&:public_dns_name)
   end
 
   def self.ssh
     prompt = TTY::Prompt.new
-    dns_name = prompt.select('Which instance?', dns_names)
-
-    command = "ssh -i #{config.values['key_pair']['path']} -o StrictHostKeychecking=no ubuntu@#{dns_name}"
-    puts command
-    system(command)
+    public_dns_name = prompt.select('Which instance?', public_dns_names)
+    Instance.ssh(public_dns_name)
   end
 
   def self.help_text

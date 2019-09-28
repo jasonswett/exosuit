@@ -25,7 +25,7 @@ when 'instances'
 when 'instances:running'
   puts_instances(Exosuit::Instance.running)
 when 'dns'
-  puts Exosuit.dns_names
+  puts Exosuit.public_dns_names
 when 'ssh'
   Exosuit.ssh
 else

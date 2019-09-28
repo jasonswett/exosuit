@@ -52,6 +52,15 @@ module Exosuit
       JSON.parse(raw_response)
     end
 
+    def self.ssh(public_dns_name)
+      command = %(
+        ssh -i #{Exosuit.config.values['key_pair']['path']} \
+          -o StrictHostKeychecking=no ubuntu@#{public_dns_name}
+      )
+
+      system(command)
+    end
+
     def self.all
       command = %(
         aws ec2 describe-instances --profile=#{Exosuit.config.values['aws_profile_name']}

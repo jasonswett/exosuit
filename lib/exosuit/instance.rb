@@ -1,3 +1,6 @@
+require 'open3'
+require 'json'
+
 module Exosuit
   class Instance
     IMAGE_ID = 'ami-05c1fa8df71875112'
@@ -12,7 +15,8 @@ module Exosuit
           --key-name #{keypair.name}
       )
 
-      system(command)
+      response = Open3.capture3(command)[0]
+      JSON.parse(response)
     end
   end
 end

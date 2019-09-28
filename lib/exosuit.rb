@@ -1,6 +1,7 @@
 require 'json'
 require 'open3'
 require 'tty-prompt'
+require 'pry'
 require_relative 'exosuit/configuration'
 require_relative 'exosuit/key_pair'
 require_relative 'exosuit/instance'
@@ -11,7 +12,10 @@ module Exosuit
   end
 
   def self.launch_instance
-    Instance.launch(self.key_pair)
+    response = Instance.launch(self.key_pair)
+    instance_id = response['Instances'][0]['InstanceId']
+    puts "Successfully launched instance #{instance_id}"
+    puts 'Run `bin/exo dns` to check to see when your instance is ready.'
   end
 
   def self.key_pair

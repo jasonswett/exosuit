@@ -34,7 +34,7 @@ module Exosuit
 
   def self.dns_names
     command = "aws ec2 describe-instances --filters Name=instance-state-name,Values=running --profile=#{Exosuit.config.values['aws_profile_name']}"
-    response, _, _ = Open3.capture3(command)
+    response = Open3.capture3(command)[0]
 
     JSON.parse(response)['Reservations'].map do |data|
       data['Instances'][0]['PublicDnsName']

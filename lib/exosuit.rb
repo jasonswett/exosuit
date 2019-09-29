@@ -5,6 +5,7 @@ require 'pry'
 require_relative 'exosuit/configuration'
 require_relative 'exosuit/key_pair'
 require_relative 'exosuit/instance'
+require_relative 'exosuit/help'
 
 module Exosuit
   def self.config
@@ -57,16 +58,5 @@ module Exosuit
     prompt = TTY::Prompt.new
     public_dns_name = prompt.select('Which instance?', public_dns_names)
     Instance.ssh(public_dns_name)
-  end
-
-  def self.help_text
-    %(Usage:
-  exo [command]
-
-These are the commands you can use:
-  launch                 Launch a new EC2 instance
-  describe-instances     Alias for aws ec2 describe-instances
-  dns                    List public DNS names for all EC2 instances
-  ssh                    SSH into an EC2 instance)
   end
 end

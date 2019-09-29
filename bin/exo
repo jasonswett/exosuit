@@ -29,5 +29,5 @@ when 'dns'
 when 'ssh'
   Exosuit.ssh
 else
-  puts Exosuit.help_text
+  puts Exosuit::Help.help_text
 end

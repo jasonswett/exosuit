@@ -31,6 +31,8 @@ when 'dns'
   puts Exosuit.public_dns_names
 when 'ssh'
   Exosuit.ssh
+when 'open'
+  Exosuit.open
 
 when 'l'
   Exosuit.launch_instance

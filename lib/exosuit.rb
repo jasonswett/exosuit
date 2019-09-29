@@ -55,7 +55,6 @@ module Exosuit
   end
 
   def self.ssh
-    prompt = TTY::Prompt.new
     public_dns_name = prompt.select('Which instance?', public_dns_names)
     Instance.ssh(public_dns_name)
   end
@@ -68,13 +67,22 @@ module Exosuit
       return
     end
 
-    prompt = TTY::Prompt.new
-
     instance_ids_to_terminate = prompt.multi_select(
       'Which instance(s)?',
       running_instances.map(&:instance_id)
     )
 
     Instance.terminate(instance_ids_to_terminate)
+  end
+
+  def self.open
+    public_dns_name = prompt.select('Which instance?', public_dns_names)
+    system("open http://#{public_dns_name}")
+  end
+
+  private
+
+  def self.prompt
+    @prompt ||= TTY::Prompt.new
   end
 end

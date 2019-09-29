@@ -59,4 +59,22 @@ module Exosuit
     public_dns_name = prompt.select('Which instance?', public_dns_names)
     Instance.ssh(public_dns_name)
   end
+
+  def self.terminate
+    running_instances = Instance.running
+
+    unless running_instances.any?
+      puts 'No running instances to terminate'
+      return
+    end
+
+    prompt = TTY::Prompt.new
+
+    instance_ids_to_terminate = prompt.multi_select(
+      'Which instance(s)?',
+      running_instances.map(&:instance_id)
+    )
+
+    Instance.terminate(instance_ids_to_terminate)
+  end
 end

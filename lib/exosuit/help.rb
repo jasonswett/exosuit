@@ -6,6 +6,7 @@ module Exosuit
 
 These are the commands you can use:
   launch                 Launch a new EC2 instance
+  terminate              Terminate an EC2 instance
   instances              Show a summary of all EC2 instances
   instances:running      Show only running instances
   dns                    List public DNS names for all EC2 instances

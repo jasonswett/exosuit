@@ -18,8 +18,11 @@ def puts_instances(instances)
 end
 
 case ARGV[0]
+
 when 'launch'
   Exosuit.launch_instance
+when 'terminate'
+  Exosuit.terminate
 when 'instances'
   puts_instances(Exosuit::Instance.all)
 when 'instances:running'
@@ -28,6 +31,14 @@ when 'dns'
   puts Exosuit.public_dns_names
 when 'ssh'
   Exosuit.ssh
+
+when 'l'
+  Exosuit.launch_instance
+when 't'
+  Exosuit.terminate
+when 'r'
+  puts_instances(Exosuit::Instance.running)
+
 else
   puts Exosuit::Help.help_text
 end

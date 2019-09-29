@@ -61,10 +61,18 @@ module Exosuit
       system(command)
     end
 
+    def self.terminate(instance_ids)
+      command = %(
+        aws ec2 terminate-instances --profile=#{Exosuit.config.values['aws_profile_name']} \
+          --instance-ids #{instance_ids.join(' ')}
+      )
+
+      system(command)
+    end
+
     def self.all
       command = %(
         aws ec2 describe-instances --profile=#{Exosuit.config.values['aws_profile_name']}
-          --filters Name=instance-state-name,Values=running
       )
 
       raw_response = Open3.capture3(command)[0]

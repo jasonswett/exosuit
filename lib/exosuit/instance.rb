@@ -1,6 +1,6 @@
 require 'open3'
 require 'json'
-require 'pry'
+require_relative 'aws_command'
 
 module Exosuit
   class Instance
@@ -39,17 +39,16 @@ module Exosuit
       [instance_id, state, public_dns_name].compact.join("\n")
     end
 
-    def self.launch(keypair)
-      command = %(
-        aws ec2 run-instances --profile=#{Exosuit.config.values['aws_profile_name']} \
-          --count 1 \
-          --image-id #{IMAGE_ID} \
-          --instance-type #{INSTANCE_TYPE} \
-          --key-name #{keypair.name}
+    def self.launch(key_pair)
+      command = AWSCommand.new(
+        :run_instances,
+        count: 1,
+        image_id: IMAGE_ID,
+        instance_type: INSTANCE_TYPE,
+        key_name: key_pair.name
       )
 
-      raw_response = Open3.capture3(command)[0]
-      JSON.parse(raw_response)
+      JSON.parse(command.run)
     end
 
     def self.ssh(public_dns_name)
@@ -62,21 +61,17 @@ module Exosuit
     end
 
     def self.terminate(instance_ids)
-      command = %(
-        aws ec2 terminate-instances --profile=#{Exosuit.config.values['aws_profile_name']} \
-          --instance-ids #{instance_ids.join(' ')}
+      command = AWSCommand.new(
+        :terminate_instances,
+        instance_ids: instance_ids.join(' ')
       )
 
-      system(command)
+      system(command.to_s)
     end
 
     def self.all
-      command = %(
-        aws ec2 describe-instances --profile=#{Exosuit.config.values['aws_profile_name']}
-      )
-
-      raw_response = Open3.capture3(command)[0]
-      response = JSON.parse(raw_response)
+      command = AWSCommand.new(:describe_instances)
+      response = JSON.parse(command.run)
 
       response['Reservations'].map do |reservation|
         info = reservation['Instances'][0]

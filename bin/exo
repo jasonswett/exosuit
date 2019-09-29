@@ -24,9 +24,9 @@ when 'launch'
 when 'terminate'
   Exosuit.terminate
 when 'instances'
-  puts_instances(Exosuit::Instance.all)
-when 'instances:running'
   puts_instances(Exosuit::Instance.running)
+when 'instances:all'
+  puts_instances(Exosuit::Instance.all)
 when 'dns'
   puts Exosuit.public_dns_names
 when 'ssh'
@@ -36,7 +36,7 @@ when 'l'
   Exosuit.launch_instance
 when 't'
   Exosuit.terminate
-when 'r'
+when 'i'
   puts_instances(Exosuit::Instance.running)
 
 else

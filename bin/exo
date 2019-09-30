@@ -13,7 +13,7 @@ end
 def puts_instances(instances)
   instances.each do |instance|
     puts '-' * 40
-    puts instance
+    puts Exosuit::Instance.to_s(instance)
   end
 end
 

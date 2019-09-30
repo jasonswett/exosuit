@@ -1,3 +1,4 @@
+require 'aws-sdk-ec2'
 require 'json'
 require 'open3'
 require 'tty-prompt'
@@ -12,17 +13,27 @@ module Exosuit
     Configuration.new
   end
 
+  def self.profile_name
+    Exosuit.config.values['aws_profile_name']
+  end
+
+  def self.ec2
+    @ec2 ||= Aws::EC2::Resource.new(profile: profile_name)
+  end
+
+  def self.aws_client
+    @aws_client ||= Aws::EC2::Client.new(profile: profile_name)
+  end
+
   def self.launch_instance
-    response = Instance.launch(self.key_pair)
-    instance_id = response['Instances'][0]['InstanceId']
-    print "Launching instance #{instance_id}..."
+    instance = Instance.launch(self.key_pair)
+    print "Launching instance #{instance.id}..."
 
     while true
       sleep(1)
       print '.'
-      instance = Instance.find(instance_id)
 
-      if instance && instance.running?
+      if instance.reload.state.name == 'running'
         puts
         break
       end
@@ -67,12 +78,12 @@ module Exosuit
       return
     end
 
-    instance_ids_to_terminate = prompt.multi_select(
+    instance_ids = prompt.multi_select(
       'Which instance(s)?',
-      running_instances.map(&:instance_id)
+      running_instances.map(&:id)
     )
 
-    Instance.terminate(instance_ids_to_terminate)
+    Exosuit.aws_client.terminate_instances(instance_ids: instance_ids)
   end
 
   def self.open

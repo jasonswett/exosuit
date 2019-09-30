@@ -33,6 +33,7 @@ module Exosuit
       cool
       awesome
       radical
+      squashed
     )
 
     NOUNS = %w(
@@ -48,6 +49,8 @@ module Exosuit
       puppy
       chicken
       bird
+      elephant
+      sloth
       computer
       river
       mountain

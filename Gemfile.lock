@@ -1,9 +1,22 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    aws-eventstream (1.0.3)
+    aws-partitions (1.220.0)
+    aws-sdk-core (3.68.0)
+      aws-eventstream (~> 1.0, >= 1.0.2)
+      aws-partitions (~> 1.0)
+      aws-sigv4 (~> 1.1)
+      jmespath (~> 1.0)
+    aws-sdk-ec2 (1.110.0)
+      aws-sdk-core (~> 3, >= 3.61.1)
+      aws-sigv4 (~> 1.1)
+    aws-sigv4 (1.1.0)
+      aws-eventstream (~> 1.0, >= 1.0.2)
     coderay (1.1.2)
     diff-lcs (1.3)
     equatable (0.6.1)
+    jmespath (1.4.0)
     method_source (0.9.2)
     necromancer (0.5.0)
     pastel (0.7.3)
@@ -42,6 +55,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aws-sdk-ec2
   pry
   rspec
   tty-prompt

@@ -6,18 +6,16 @@ module Exosuit
 
     def initialize(name = nil, filename = nil)
       @name = name || RandomPhrase.generate
-      @filename = filename || "~/.ssh/#{@name}.pem"
+      @filename = filename || File.expand_path("~/.ssh/#{@name}.pem")
     end
 
     def save
-      command = %(
-        aws ec2 create-key-pair --profile=#{Exosuit.config.values['aws_profile_name']} \
-          --key-name #{@name} \
-          --query 'KeyMaterial' \
-          --output text > #{filename}
-      )
+      key_pair = Exosuit.ec2.create_key_pair(key_name: @name)
 
-      system(command)
+      File.open(filename, 'w') do |file|
+        file.write(key_pair.key_material)
+      end
+
       system("chmod 400 #{filename}")
       self
     end

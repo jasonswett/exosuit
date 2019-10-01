@@ -9,7 +9,7 @@ require_relative 'exosuit/instance'
 require_relative 'exosuit/help'
 
 module Exosuit
-  VERSION = '0.0.2'
+  VERSION = '0.0.3'
 
   def self.config
     Configuration.new

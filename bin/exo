@@ -33,6 +33,12 @@ when 'ssh'
   Exosuit.ssh
 when 'open'
   Exosuit.open
+when '--version'
+  puts Exosuit::VERSION
+when 'version'
+  puts Exosuit::VERSION
+when '-v'
+  puts Exosuit::VERSION
 
 when 'l'
   Exosuit.launch_instance

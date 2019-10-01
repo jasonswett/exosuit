@@ -7,9 +7,13 @@ module Exosuit
     INSTANCE_TYPE = 't2.micro'
 
     def self.to_s(instance)
+      tags = instance.tags.map { |t| "#{t.key}:#{t.value}" }.join(', ')
+      tags = nil if tags == ''
+
       [
         instance.id,
         instance.state.name,
+        tags,
         instance.public_dns_name
       ].compact.join("\n")
     end

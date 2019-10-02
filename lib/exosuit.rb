@@ -1,4 +1,5 @@
 require 'aws-sdk-ec2'
+require 'aws-sdk-ssm'
 require 'json'
 require 'open3'
 require 'tty-prompt'
@@ -27,6 +28,10 @@ module Exosuit
     @aws_client ||= Aws::EC2::Client.new(profile: profile_name)
   end
 
+  def self.ssm
+    @ssm ||= Aws::SSM::Client.new(profile: profile_name)
+  end
+  
   def self.launch_instance
     instance = Instance.launch(self.key_pair)
     print "Launching instance #{instance.id}..."

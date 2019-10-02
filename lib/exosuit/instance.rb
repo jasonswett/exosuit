@@ -3,7 +3,7 @@ require 'json'
 
 module Exosuit
   class Instance
-    IMAGE_ID = 'ami-05c1fa8df71875112'
+    IMAGE_NAME = '/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2'
     INSTANCE_TYPE = 't2.micro'
 
     def self.to_s(instance)
@@ -22,7 +22,7 @@ module Exosuit
       Exosuit::ec2.create_instances(
         min_count: 1,
         max_count: 1,
-        image_id: IMAGE_ID,
+        image_id: latest_ami,
         instance_type: INSTANCE_TYPE,
         key_name: key_pair.name
       ).first
@@ -43,6 +43,10 @@ module Exosuit
 
     def self.running
       all.select { |i| i.state.name == 'running' }
+    end
+
+    def self.latest_ami
+      @ami = Exosuit.ssm.get_parameters({ names: [IMAGE_NAME] }).parameters[0].value
     end
   end
 end

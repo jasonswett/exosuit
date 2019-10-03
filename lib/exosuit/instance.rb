@@ -22,7 +22,7 @@ module Exosuit
       Exosuit::ec2.create_instances(
         min_count: 1,
         max_count: 1,
-        image_id: latest_ami,
+        image_id: latest_ami_id,
         instance_type: INSTANCE_TYPE,
         key_name: key_pair.name
       ).first
@@ -45,8 +45,11 @@ module Exosuit
       all.select { |i| i.state.name == 'running' }
     end
 
-    def self.latest_ami
-      @ami = Exosuit.ssm.get_parameters({ names: [IMAGE_NAME] }).parameters[0].value
+    def self.latest_ami_id
+      Aws::SSM::Client.new(profile: profile_name)
+                      .get_parameters(names: [IMAGE_NAME])
+                      .parameters[0]
+                      .value
     end
   end
 end

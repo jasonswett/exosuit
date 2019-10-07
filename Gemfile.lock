@@ -11,9 +11,6 @@ GEM
     aws-sdk-ec2 (1.110.0)
       aws-sdk-core (~> 3, >= 3.61.1)
       aws-sigv4 (~> 1.1)
-    aws-sdk-ssm (1.56.0)
-      aws-sdk-core (~> 3, >= 3.61.1)
-      aws-sigv4 (~> 1.1)
     aws-sigv4 (1.1.0)
       aws-eventstream (~> 1.0, >= 1.0.2)
     coderay (1.1.2)
@@ -59,7 +56,6 @@ PLATFORMS
 
 DEPENDENCIES
   aws-sdk-ec2
-  aws-sdk-ssm
   pry
   rspec
   tty-prompt

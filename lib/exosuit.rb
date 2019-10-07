@@ -9,7 +9,7 @@ require_relative 'exosuit/instance'
 require_relative 'exosuit/help'
 
 module Exosuit
-  VERSION = '0.0.3'
+  VERSION = '0.0.3'.freeze
 
   def self.config
     Configuration.new
@@ -28,10 +28,10 @@ module Exosuit
   end
 
   def self.launch_instance
-    instance = Instance.launch(self.key_pair)
+    instance = Instance.launch(key_pair)
     print "Launching instance #{instance.id}..."
 
-    while true
+    loop do
       sleep(1)
       print '.'
 
@@ -93,8 +93,6 @@ module Exosuit
     public_dns_name = prompt.select('Which instance?', public_dns_names)
     system("open http://#{public_dns_name}")
   end
-
-  private
 
   def self.prompt
     @prompt ||= TTY::Prompt.new

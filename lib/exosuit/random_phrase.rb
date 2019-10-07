@@ -1,6 +1,6 @@
 module Exosuit
   class RandomPhrase
-    ADJECTIVES = %w(
+    ADJECTIVES = %w[
       good
       bad
       terrible
@@ -34,9 +34,9 @@ module Exosuit
       awesome
       radical
       squashed
-    )
+    ].freeze
 
-    NOUNS = %w(
+    NOUNS = %w[
       person
       place
       thing
@@ -74,7 +74,7 @@ module Exosuit
       pizza
       banana
       volcano
-    )
+    ].freeze
 
     def self.generate
       "#{ADJECTIVES.sample}-#{ADJECTIVES.sample}-#{NOUNS.sample}"

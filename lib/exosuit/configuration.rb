@@ -2,9 +2,9 @@ require 'yaml'
 
 module Exosuit
   class Configuration
-    CONFIG_DIR = './.exosuit'
-    CONFIG_FILENAME = 'config.yml'
-    FILENAME = "#{CONFIG_DIR}/#{CONFIG_FILENAME}"
+    CONFIG_DIR = './.exosuit'.freeze
+    CONFIG_FILENAME = 'config.yml'.freeze
+    FILENAME = "#{CONFIG_DIR}/#{CONFIG_FILENAME}".freeze
 
     def update_key_pair(name:, path:)
       ensure_file_exists
@@ -18,7 +18,7 @@ module Exosuit
 
     def values
       ensure_file_exists
-      YAML::load_file(FILENAME)
+      YAML.load_file(FILENAME)
     end
 
     private

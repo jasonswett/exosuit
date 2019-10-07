@@ -3,8 +3,8 @@ require 'json'
 
 module Exosuit
   class Instance
-    IMAGE_NAME = 'ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*'
-    INSTANCE_TYPE = 't2.micro'
+    IMAGE_NAME = 'ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*'.freeze
+    INSTANCE_TYPE = 't2.micro'.freeze
 
     def self.to_s(instance)
       tags = instance.tags.map { |t| "#{t.key}:#{t.value}" }.join(', ')
@@ -19,7 +19,7 @@ module Exosuit
     end
 
     def self.launch(key_pair)
-      Exosuit::ec2.create_instances(
+      Exosuit.ec2.create_instances(
         min_count: 1,
         max_count: 1,
         image_id: latest_ubuntu_ami.image_id,

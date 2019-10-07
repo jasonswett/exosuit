@@ -1,7 +1,9 @@
 source 'https://rubygems.org'
 
-gem 'tty-prompt'
 gem 'aws-sdk-ec2'
+gem 'tty-prompt'
 
 gem 'pry'
 gem 'rspec'
+
+gem 'rubocop', require: false

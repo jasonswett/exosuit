@@ -3,7 +3,7 @@ require 'json'
 
 module Exosuit
   class Instance
-    IMAGE_ID = 'ami-05c1fa8df71875112'
+    IMAGE_NAME = 'ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*'
     INSTANCE_TYPE = 't2.micro'
 
     def self.to_s(instance)
@@ -22,7 +22,7 @@ module Exosuit
       Exosuit::ec2.create_instances(
         min_count: 1,
         max_count: 1,
-        image_id: IMAGE_ID,
+        image_id: latest_ubuntu_ami.image_id,
         instance_type: INSTANCE_TYPE,
         key_name: key_pair.name
       ).first
@@ -43,6 +43,13 @@ module Exosuit
 
     def self.running
       all.select { |i| i.state.name == 'running' }
+    end
+
+    def self.latest_ubuntu_ami
+      @latest_ubuntu_ami ||= Exosuit.ec2.images(
+        executable_users: ['all'],
+        filters: [{ name: 'name', values: [IMAGE_NAME] }]
+      ).max_by(&:creation_date)
     end
   end
 end

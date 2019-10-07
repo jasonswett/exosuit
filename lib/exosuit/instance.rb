@@ -45,13 +45,6 @@ module Exosuit
       all.select { |i| i.state.name == 'running' }
     end
 
-    def self.wait_for_ec2_instance(image_ids)
-      Exosuit.ec2.wait_until(:instance_running, instance_ids: [Array(image_ids)])
-      puts "#{image_ids} instance running"
-    rescue Aws::Waiters::Errors::WaiterFailed => error
-      puts "failed waiting for instance running: #{error.message}"
-    end
-
     def self.latest_ubuntu_ami
       @latest_ubuntu_ami ||= Exosuit.ec2.images(
         executable_users: ['all'],

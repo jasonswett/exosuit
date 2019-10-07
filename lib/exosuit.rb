@@ -69,7 +69,6 @@ module Exosuit
 
   def self.ssh
     public_dns_name = prompt.select('Which instance?', public_dns_names)
-    Instance.wait_for_ec2_instance(public_dns_name)
     Instance.ssh(public_dns_name)
   end
 

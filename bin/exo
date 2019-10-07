@@ -22,6 +22,8 @@ case ARGV[0]
 when 'launch'
   Exosuit.launch_instance
 when 'terminate'
+  puts_instances(Exosuit::Instance.running)
+  puts
   Exosuit.terminate
 when 'instances'
   puts_instances(Exosuit::Instance.running)
@@ -30,7 +32,13 @@ when 'instances:all'
 when 'dns'
   puts Exosuit.public_dns_names
 when 'ssh'
+  puts_instances(Exosuit::Instance.running)
+  puts
   Exosuit.ssh
+when 'initialize'
+  puts_instances(Exosuit::Instance.running)
+  puts
+  Exosuit.initialize
 when 'open'
   Exosuit.open
 when '--version'
@@ -43,6 +51,8 @@ when '-v'
 when 'l'
   Exosuit.launch_instance
 when 't'
+  puts_instances(Exosuit::Instance.running)
+  puts
   Exosuit.terminate
 when 'i'
   puts_instances(Exosuit::Instance.running)

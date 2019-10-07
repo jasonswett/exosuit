@@ -72,6 +72,11 @@ module Exosuit
     Instance.ssh(public_dns_name)
   end
 
+  def self.initialize
+    public_dns_name = prompt.select('Which instance?', public_dns_names)
+    Instance.initialize(public_dns_name)
+  end
+
   def self.terminate
     running_instances = Instance.running
 

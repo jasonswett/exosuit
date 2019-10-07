@@ -46,12 +46,10 @@ module Exosuit
     end
 
     def self.latest_ubuntu_ami
-      ubuntu_image ||= Exosuit.ec2.images(
-          {
-              executable_users: ["all"],
-              filters: [ { name: "name",values: [IMAGE_NAME]}]
-          }
-      ).sort_by {|i| i.creation_date}.last
+      @latest_ubuntu_ami ||= Exosuit.ec2.images(
+        executable_users: ['all'],
+        filters: [{ name: 'name', values: [IMAGE_NAME] }]
+      ).max_by(&:creation_date)
     end
   end
 end

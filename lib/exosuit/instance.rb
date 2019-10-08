@@ -5,6 +5,7 @@ module Exosuit
   class Instance
     IMAGE_NAME = 'ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*'
     INSTANCE_TYPE = 't2.micro'
+    INITIALIZATION_SCRIPT_URL = 'https://raw.githubusercontent.com/jasonswett/exosuit/master/scripts/setup.sh'
 
     def self.to_s(instance)
       tags = instance.tags.map { |t| "#{t.key}:#{t.value}" }.join(', ')
@@ -41,7 +42,7 @@ module Exosuit
       command = %(
         ssh -i #{Exosuit.config.values['key_pair']['path']} \
           -o StrictHostKeychecking=no ubuntu@#{public_dns_name} \
-          'bash -s' < ./scripts/setup.sh
+          'bash <(curl #{INITIALIZATION_SCRIPT_URL})'
       )
 
       system(command)

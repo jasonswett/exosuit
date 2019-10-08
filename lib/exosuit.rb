@@ -8,7 +8,7 @@ require_relative 'exosuit/instance'
 require_relative 'exosuit/help'
 
 module Exosuit
-  VERSION = '0.0.4'
+  VERSION = '0.0.5'
 
   def self.config
     Configuration.new

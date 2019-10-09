@@ -33,6 +33,9 @@ when 'ssh'
 when 'initialize'
   puts_running_instances
   Exosuit.initialize
+when 'git:add'
+  command = "git remote add exosuit ssh://ubuntu@git.exosuit.io/#{Exosuit.config.values['app_name']}.git"
+  system(command)
 when 'open'
   Exosuit.open
 when '--version', 'version', '-v'

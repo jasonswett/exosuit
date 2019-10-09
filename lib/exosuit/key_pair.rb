@@ -6,7 +6,7 @@ module Exosuit
 
     def initialize(name = nil, filename = nil)
       @name = name || RandomPhrase.generate
-      @filename = filename || File.expand_path("~/.ssh/#{@name}.pem")
+      @filename = filename || File.expand_path("~/.ssh/#{@name}")
     end
 
     def save

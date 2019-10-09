@@ -38,7 +38,7 @@ module Exosuit
       system(command)
     end
 
-    def self.initialize(public_dns_name)
+    def self.prepare(public_dns_name)
       command = %(
         ssh -i #{Exosuit.config.values['key_pair']['path']} \
           -o StrictHostKeychecking=no ubuntu@#{public_dns_name} \

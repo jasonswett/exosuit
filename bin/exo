@@ -36,6 +36,8 @@ when 'initialize'
 when 'git:add'
   command = "git remote add exosuit ssh://ubuntu@git.exosuit.io/#{Exosuit.config.values['app_name']}.git"
   system(command)
+when 'create'
+  Exosuit.create
 when 'open'
   Exosuit.open
 when '--version', 'version', '-v'

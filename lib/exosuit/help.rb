@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Exosuit
   module Help
     def self.help_text

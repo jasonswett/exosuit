@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'yaml'
 
 module Exosuit
   class Configuration
-    CONFIG_DIR = './.exosuit'.freeze
-    CONFIG_FILENAME = 'config.yml'.freeze
-    FILENAME = "#{CONFIG_DIR}/#{CONFIG_FILENAME}".freeze
+    CONFIG_DIR = './.exosuit'
+    CONFIG_FILENAME = 'config.yml'
+    FILENAME = "#{CONFIG_DIR}/#{CONFIG_FILENAME}"
 
     def update_key_pair(name:, path:)
       ensure_file_exists

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'aws-sdk-ec2'
 require 'json'
 require 'open3'
@@ -9,7 +11,7 @@ require_relative 'exosuit/instance'
 require_relative 'exosuit/help'
 
 module Exosuit
-  VERSION = '0.0.3'.freeze
+  VERSION = '0.0.3'
 
   def self.config
     Configuration.new

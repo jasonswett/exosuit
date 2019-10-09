@@ -4,14 +4,13 @@ require 'aws-sdk-ec2'
 require 'json'
 require 'open3'
 require 'tty-prompt'
-require 'pry'
 require_relative 'exosuit/configuration'
 require_relative 'exosuit/key_pair'
 require_relative 'exosuit/instance'
 require_relative 'exosuit/help'
 
 module Exosuit
-  VERSION = '0.0.3'
+  VERSION = '0.0.5'
 
   def self.config
     Configuration.new
@@ -72,6 +71,11 @@ module Exosuit
   def self.ssh
     public_dns_name = prompt.select('Which instance?', public_dns_names)
     Instance.ssh(public_dns_name)
+  end
+
+  def self.initialize
+    public_dns_name = prompt.select('Which instance?', public_dns_names)
+    Instance.initialize(public_dns_name)
   end
 
   def self.terminate

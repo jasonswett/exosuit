@@ -3,14 +3,6 @@
 
 require_relative '../lib/exosuit'
 
-aws_cli_installed = system('which aws', out: File::NULL)
-
-unless aws_cli_installed
-  puts 'Missing dependency: AWS CLI is not installed.'
-  puts 'Visit https://aws.amazon.com/cli/ and install the AWS CLI, then try the exo command again.'
-  exit
-end
-
 def puts_instances(instances)
   instances.each do |instance|
     puts '-' * 40
@@ -18,35 +10,34 @@ def puts_instances(instances)
   end
 end
 
+def puts_running_instances
+  puts_instances(Exosuit::Instance.running)
+  puts
+end
+
 case ARGV[0]
 
-when 'launch'
+when 'launch', 'l'
   Exosuit.launch_instance
-when 'terminate'
+when 'terminate', 't'
+  puts_running_instances
   Exosuit.terminate
-when 'instances'
+when 'instances', 'i'
   puts_instances(Exosuit::Instance.running)
 when 'instances:all'
   puts_instances(Exosuit::Instance.all)
 when 'dns'
   puts Exosuit.public_dns_names
 when 'ssh'
+  puts_running_instances
   Exosuit.ssh
+when 'initialize'
+  puts_running_instances
+  Exosuit.initialize
 when 'open'
   Exosuit.open
-when '--version'
+when '--version', 'version', '-v'
   puts Exosuit::VERSION
-when 'version'
-  puts Exosuit::VERSION
-when '-v'
-  puts Exosuit::VERSION
-
-when 'l'
-  Exosuit.launch_instance
-when 't'
-  Exosuit.terminate
-when 'i'
-  puts_instances(Exosuit::Instance.running)
 
 else
   puts Exosuit::Help.help_text

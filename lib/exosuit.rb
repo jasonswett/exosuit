@@ -3,6 +3,8 @@
 require 'aws-sdk-ec2'
 require 'json'
 require 'open3'
+require 'net/http'
+require 'openssl'
 require 'tty-prompt'
 require_relative 'exosuit/configuration'
 require_relative 'exosuit/key_pair'
@@ -17,7 +19,7 @@ module Exosuit
   end
 
   def self.profile_name
-    Exosuit.config.values['aws_profile_name']
+    config.values['aws_profile_name']
   end
 
   def self.ec2
@@ -73,9 +75,9 @@ module Exosuit
     Instance.ssh(public_dns_name)
   end
 
-  def self.initialize
+  def self.prepare
     public_dns_name = prompt.select('Which instance?', public_dns_names)
-    Instance.initialize(public_dns_name)
+    Instance.prepare(public_dns_name)
   end
 
   def self.terminate
@@ -98,6 +100,27 @@ module Exosuit
     public_dns_name = prompt.select('Which instance?', public_dns_names)
     system("open http://#{public_dns_name}")
   end
+
+  def self.create
+    uri = URI('https://enigmatic-oasis-46677.herokuapp.com/api/v1/apps')
+
+    email = prompt.ask('Exosuit email:')
+    password = prompt.mask('Exosuit password:')
+
+    Net::HTTP.start(
+      uri.hostname,
+      uri.port,
+      use_ssl: true,
+      verify_mode: OpenSSL::SSL::VERIFY_NONE
+    ) do |http|
+      request = Net::HTTP::Post.new(uri)
+      request.basic_auth email, password
+      request.set_form_data('app[name]' => config.values['app_name'])
+      http.request(request)
+    end
+  end
+
+  private
 
   def self.prompt
     @prompt ||= TTY::Prompt.new

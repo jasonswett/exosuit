@@ -31,9 +31,14 @@ when 'dns'
 when 'ssh'
   puts_running_instances
   Exosuit.ssh
-when 'initialize'
+when 'prepare'
   puts_running_instances
-  Exosuit.initialize
+  Exosuit.prepare
+when 'git:add'
+  command = "git remote add exosuit http://git.exosuit.io/#{Exosuit.config.values['app_name']}.git"
+  system(command)
+when 'create'
+  Exosuit.create
 when 'open'
   Exosuit.open
 when '--version', 'version', '-v'

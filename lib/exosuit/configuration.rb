@@ -23,6 +23,11 @@ module Exosuit
       YAML.load_file(FILENAME)
     end
 
+    def set(options)
+      ensure_file_exists
+      save(values.merge(options))
+    end
+
     private
 
     def save(config)

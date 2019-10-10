@@ -32,6 +32,7 @@ module Exosuit
 
   def self.launch_instance
     instance = Instance.launch(key_pair)
+    config.set('primary_instance_id' => instance.id)
     print "Launching instance #{instance.id}..."
 
     loop do
@@ -87,8 +88,7 @@ module Exosuit
   end
 
   def self.open
-    public_dns_name = prompt.select('Which instance?', public_dns_names)
-    system("open http://#{public_dns_name}")
+    system("open http://#{Instance.primary.public_dns_name}")
   end
 
   def self.create

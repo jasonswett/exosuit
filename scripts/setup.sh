@@ -29,6 +29,7 @@ sudo service nginx restart
 # --------------------------------
 
 sudo apt-get install -y libpq-dev
+sudo apt-get install -y postgresql-client-common
 
 # --------------------------------
 

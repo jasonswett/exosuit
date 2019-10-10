@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'aws-sdk-ec2'
 require 'json'
 require 'open3'
@@ -29,10 +31,10 @@ module Exosuit
   end
 
   def self.launch_instance
-    instance = Instance.launch(self.key_pair)
+    instance = Instance.launch(key_pair)
     print "Launching instance #{instance.id}..."
 
-    while true
+    loop do
       sleep(1)
       print '.'
 

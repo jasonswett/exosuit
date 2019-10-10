@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'yaml'
 
 module Exosuit
@@ -18,7 +20,7 @@ module Exosuit
 
     def values
       ensure_file_exists
-      YAML::load_file(FILENAME)
+      YAML.load_file(FILENAME)
     end
 
     private

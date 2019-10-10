@@ -100,7 +100,7 @@ module Exosuit
   end
 
   def self.create
-    uri = URI('https://enigmatic-oasis-46677.herokuapp.com/api/v1/apps')
+    uri = URI('https://app.exosuit.io/api/v1/apps')
 
     email = prompt.ask('Exosuit email:')
     password = prompt.mask('Exosuit password:')

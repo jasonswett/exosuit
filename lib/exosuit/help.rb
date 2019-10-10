@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module Exosuit
   module Help
     def self.help_text
-    %(Usage:
-  exo [command]
+      %(Usage:
+    exo [command]
 
 These are the commands you can use:
   launch                 Launch a new EC2 instance

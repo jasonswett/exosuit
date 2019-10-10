@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'open3'
 require 'json'
 
@@ -20,7 +22,7 @@ module Exosuit
     end
 
     def self.launch(key_pair)
-      Exosuit::ec2.create_instances(
+      Exosuit.ec2.create_instances(
         min_count: 1,
         max_count: 1,
         image_id: latest_ubuntu_ami.image_id,

@@ -2,6 +2,7 @@
 
 require 'open3'
 require 'json'
+require 'pry'
 
 module Exosuit
   class Instance
@@ -31,7 +32,7 @@ module Exosuit
       ).first
     end
 
-    def self.ssh(public_dns_name)
+    def self.ssh(public_dns_name = primary.public_dns_name)
       command = %(
         ssh -i #{Exosuit.config.values['key_pair']['path']} \
           -o StrictHostKeychecking=no ubuntu@#{public_dns_name}
@@ -40,7 +41,7 @@ module Exosuit
       system(command)
     end
 
-    def self.prepare(public_dns_name)
+    def self.prepare(public_dns_name = primary.public_dns_name)
       command = %(
         ssh -i #{Exosuit.config.values['key_pair']['path']} \
           -o StrictHostKeychecking=no ubuntu@#{public_dns_name} \
@@ -56,6 +57,17 @@ module Exosuit
 
     def self.running
       all.select { |i| i.state.name == 'running' }
+    end
+
+    def self.primary
+      instance_id = Exosuit.config.values['primary_instance_id']
+
+      if instance_id
+        Exosuit.ec2.instance(instance_id)
+      else
+        config_filename = Exosuit::Configuration::FILENAME
+        abort("#{config_filename} is is missing primary_instance_id directive")
+      end
     end
 
     def self.latest_ubuntu_ami

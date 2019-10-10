@@ -29,11 +29,9 @@ when 'instances:all'
 when 'dns'
   puts Exosuit.public_dns_names
 when 'ssh'
-  puts_running_instances
-  Exosuit.ssh
+  Exosuit::Instance.ssh
 when 'prepare'
-  puts_running_instances
-  Exosuit.prepare
+  Exosuit::Instance.prepare
 when 'git:add'
   command = "git remote add exosuit http://git.exosuit.io/#{Exosuit.config.values['app_name']}.git"
   system(command)

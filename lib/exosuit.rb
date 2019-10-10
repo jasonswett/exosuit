@@ -70,16 +70,6 @@ module Exosuit
     Instance.running.map(&:public_dns_name)
   end
 
-  def self.ssh
-    public_dns_name = prompt.select('Which instance?', public_dns_names)
-    Instance.ssh(public_dns_name)
-  end
-
-  def self.prepare
-    public_dns_name = prompt.select('Which instance?', public_dns_names)
-    Instance.prepare(public_dns_name)
-  end
-
   def self.terminate
     running_instances = Instance.running
 

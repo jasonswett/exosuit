@@ -21,7 +21,7 @@ This is the aim of **Exosuit**. Exosuit is a free, open source tool that lets yo
 
 ## Getting started
 
-See the [Getting Started with Exosuit](https://github.com/jasonswett/exosuit/wiki/Getting-Started-with-Exosuit) page for installation and usage instructions.
+See the [Getting Started with Exosuit](https://docs.exosuit.io/getting-started.html) page for installation and usage instructions.
 
 ## Development status
 
